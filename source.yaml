@@ -1,0 +1,3 @@
+source: "https://pkmncards.com/type/pokemon/page/{page_number}/?sort=date&ord=auto&display=images"
+class: "card-image"
+srcset_template: "https://pkmncards.com/wp-content/uploads/svbsp_en_161_std.jpg 733w, https://pkmncards.com/wp-content/uploads/svbsp_en_161_std-225x314.jpg 225w, https://pkmncards.com/wp-content/uploads/svbsp_en_161_std-312x436.jpg 312w"

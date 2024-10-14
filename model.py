@@ -14,9 +14,8 @@ class Discriminator(nn.Module):
             nn.Sigmoid() #Ensures output is ∈ [0,1]
         )
 
-        def forward(self, x:torch.Tensor) -> torch.Tensor:
-
-            return self.disc(x)
+    def forward(self, x:torch.Tensor) -> torch.Tensor:
+        return self.disc(x)
         
 
 class Generator(nn.Module):
@@ -31,9 +30,9 @@ class Generator(nn.Module):
             nn.Tanh() #Ensures outputs are ∈ [-1,1]
         ) 
 
-        def forward(self,x) -> torch.Tensor:
-            """
-            img_dim x img_dim x channel
-            """
-            return self.gen(x)
+    def forward(self,x) -> torch.Tensor:
+        """
+        img_dim x img_dim x channel
+        """
+        return self.gen(x)
 

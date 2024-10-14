@@ -8,13 +8,18 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import time
+
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-
+lr=3e-4
 IMAGE_SIZE = 64
 CHANNELS_IMG = 3
 BATCH_SIZE = 64
+Z_DIM = 64
+NUM_EPOCHS = 50
+
 
 # transforming to make data more workable
 transforms = transforms.Compose(

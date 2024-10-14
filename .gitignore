@@ -3,7 +3,9 @@ data/*
 source.txt
 images/*
 old
+test/
 
+logs/
 
 __pycache__/
 *.py[cod]

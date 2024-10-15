@@ -19,8 +19,8 @@ CHANNELS_IMG = 3
 BATCH_SIZE = 32
 Z_DIM = 64
 NUM_EPOCHS = 500
-
 IMAGE_DIM = IMAGE_SIZE*IMAGE_SIZE*CHANNELS_IMG
+
 
 # transforming to make data more workable
 transforms = transforms.Compose(

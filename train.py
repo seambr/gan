@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import time
 from model import Discriminator, Generator
-
+from pathlib import Path
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
@@ -42,9 +42,23 @@ loader = DataLoader(
 )
 
 
+# Check if models are in directory
+state_path = Path("./models/V1.pt")
 
-disc = Discriminator(IMAGE_DIM).to(device)
-gen = Generator(Z_DIM,IMAGE_DIM).to(device)
+
+if (state_path.exists()):
+    print("Loading Models")
+    state = torch.load(state_path)
+    start = state["epoch"] + 1
+    disc = Discriminator(IMAGE_DIM).to(device)
+    disc.load_state_dict(state["disc"])
+
+    gen = Generator(Z_DIM,IMAGE_DIM).to(device)
+    gen.load_state_dict(state["gen"])
+else:
+    start = 0
+    disc = Discriminator(IMAGE_DIM).to(device)
+    gen = Generator(Z_DIM,IMAGE_DIM).to(device)
 
 opt_disc = optim.Adam(disc.parameters(),lr=lr)
 opt_gen = optim.Adam(gen.parameters(),lr=lr)
@@ -52,13 +66,13 @@ criterion = nn.BCELoss()
 
 noise = torch.randn((BATCH_SIZE,Z_DIM)).to(device)
 
-writer_baseline = SummaryWriter("./logs/GAN/pokemon/baseline")
-writer_generated = SummaryWriter("./logs/GAN/pokemon/generated")
+writer_baseline = SummaryWriter("./logs/V1/baseline")
+writer_generated = SummaryWriter("./logs/V1/generated")
 
 
 # INPUT IS BATCH_SIZE X CHANNELS X IMG_DIM x IMG_DIM
 
-for epoch in range(NUM_EPOCHS):
+for epoch in range(start,start+NUM_EPOCHS):
     for batch_idx, (baseline,_) in enumerate(loader):
         
         baseline = baseline.view(-1,IMAGE_DIM).to(device)
@@ -102,21 +116,14 @@ for epoch in range(NUM_EPOCHS):
                 
                 writer_baseline.add_image(f"baseline", img_grid_baseline,global_step=epoch)
                 writer_generated.add_image(f"generated", img_grid_generated,global_step=epoch)
+    if epoch % 100 == 0:
+        # save model
+        print("Saving Model")
+        Path.mkdir(Path("./models"),exist_ok=True)
+        torch.save({
+            "gen":gen.state_dict(),
+            "disc":disc.state_dict(),
+            "epoch":epoch
+            }, "./models/V1.pt")
+
             
-
-
-
-
-
-
-# TEST
-# test_writer = SummaryWriter(f"logs/test")
-
-# # add some batches to tensorboard
-# for i in range(10):
-#     time.sleep(1)
-#     examples = iter(loader)
-
-#     images, labels = next(examples)
-
-#     test_writer.add_images(f'{i}_IMAGES', images)

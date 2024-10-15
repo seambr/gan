@@ -4,7 +4,7 @@ source.txt
 images/*
 old
 test/
-
+models/
 logs/
 
 __pycache__/

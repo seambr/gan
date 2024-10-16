@@ -4,10 +4,12 @@ Generative Adversarial Network for 64 x 64 colored images, trained on game cards
 
 
 <div style="display:flex;justify-content:center;align-items:center">
-
-![image info](./examples/V1/loss_formula.png)
-
+    <img src="./examples/V1/loss_formula.png"><img>
 </div>
+
+### Results
+
+Below a batch of results can be seen at the begining stages of training, and after about 1000 epochs. The model is clearly training, and you can begin to see cards forming, although a clearer image is likley too complex for this model to produce.
 
 ![image info](./examples/V1/V1.png)
 

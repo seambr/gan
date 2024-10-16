@@ -1,6 +1,6 @@
 
 ## V1
-Generative Adversarial Network for 64 x 64 colored images, trained on game cards. The ensemble model consists of two competing fully connected models, a discriminator and a generator. The generator starts with a latent random noise vector, and is built up to a full image. The discriminator uses BCELoss (shown below), and tries to minimize the below. The generator on the other hand also uses BCELoss but instead tries to minimize $-\log(D(G(z)))$, in other words fool the discriminator into beleiving a generated sample is real i.e $(D(G(z)) = 1)$
+Generative Adversarial Network for 64 x 64 colored images, trained on game cards. The ensemble model consists of two competing fully connected models, a discriminator and a generator. The generator starts with a latent random noise vector, and is built up to a full image. The discriminator uses BCELoss (shown below), and tries to minimize the below; this represents an ability to discern between real and generated samples. The generator on the other hand also uses BCELoss but instead tries to minimize $-\log(D(G(z)))$, in other words fool the discriminator into believing a generated sample is real i.e $(D(G(z)) = 1)$
 
 
 
